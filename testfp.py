@@ -21,7 +21,7 @@ def main():
     pygame.display.set_caption("Fire Knight")
     
     spriteSheet = pygame.image.load("Images\Fireknight.png")
-   # spriteSheet = pygame.transform.scale2x(spriteSheet)
+    spriteSheet = pygame.transform.scale2x(spriteSheet)
     
     
     FireKnightPos = [-30,50]
@@ -29,11 +29,11 @@ def main():
     
     #These are needed for the image animation
     FireKnightRect = [1,60,224,53]  #Old Values
-    #FireKnightRect = [2,120,448,106]  #New values are doubled since I doubled the scale
+    FireKnightRect = [2,120,448,106]  #New values are doubled since I doubled the scale
     FireKnightPatchNumber = 0         #Start at the initial patch
     FireKnightNumPatches = 8          #Only use 4 patches
     FireKnightFrameCount = 0          #Start at intial frame
-    FireKnightFrameRate = 4;         #How often to re-draw the FireKnight
+    FireKnightFrameRate = 6;         #How often to re-draw the FireKnight
     FireKnightDirection = 'Right'     #Control which direction FireKnight is facing
     FireKnightSpeed = 6
     
@@ -127,7 +127,9 @@ def main():
             elif FireKnightDirection =='Down' and wallInTheWayDown == False:                               #FireKnight goes left
                 FireKnightPos[1] += FireKnightSpeed     #update the y for the FireKnight
                 wallInTheWayUp = False
-            
+        
+        if FireKnightMove == False:
+        
             if (frameCount % FireKnightFrameRate == 0):    #Only change the animation frame once every {FireKnightFrameRate} frames
                 if (FireKnightPatchNumber < FireKnightNumPatches-1) :
                     FireKnightPatchNumber += 1
@@ -137,6 +139,12 @@ def main():
                     FireKnightRect[0] -= FireKnightRect[2]*(FireKnightNumPatches-1)  #Reset the rect position of the rect back too
                     #self.imageRect = copy.copy(self.origImageRect)
                     #print(f"Patch Number: {FireKnightPatchNumber}   Image Rect: {FireKnightRect}  ")
+                    
+        elif FireKnightMove == True:
+             FireKnightRect = [1,177,224,53]  #Old Values
+             FireKnightRect = [2,354,448,106]  #Old Values
+        
+           
         #else:
             #oof code
         
