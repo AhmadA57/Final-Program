@@ -20,19 +20,9 @@ def main():
     mainSurface = pygame.display.set_mode((WindowX, WindowY))
     pygame.display.set_caption("Fire Knight")
     
-    Fire_Idle1 =  pygame.image.load("Images\idle\idle_1.png")
-    Fire_Idle2 =  pygame.image.load("Images\idle\idle_2.png")
-    Fire_Idle3 =  pygame.image.load("Images\idle\idle_3.png")
-    Fire_Idle4 =  pygame.image.load("Images\idle\idle_4.png")
-    Fire_Idle5 =  pygame.image.load("Images\idle\idle_5.png")
-    Fire_Idle6 =  pygame.image.load("Images\idle\idle_6.png")
-    Fire_Idle7 =  pygame.image.load("Images\idle\idle_7.png")
-    Fire_Idle8 =  pygame.image.load("Images\idle\idle_8.png")
-    Fire_Idle = [Fire_Idle1, Fire_Idle2, Fire_Idle3, Fire_Idle4, Fire_Idle5, Fire_Idle6, Fire_Idle7, Fire_Idle8]
+    spriteSheet = pygame.image.load("Images\Fireknight.png")
+    spriteSheet = pygame.transform.scale2x(spriteSheet)
     
-    
-    Fire_Animation = pygame.surface(Fire_Idle)
-    Fire_Animation = pygame.transform.scale2x(Fire_Animation)
     
     
     FireKnightPos = [-30,50]
@@ -44,6 +34,7 @@ def main():
     FireKnightPatchNumber = 0         #Start at the initial patch
     FireKnightNumPatches = 8          #Only use 4 patches
     FireKnightFrameCount = 0          #Start at intial frame
+    FireKnightFrameRate = 4;         #How often to re-draw the FireKnight
     FireKnightFrameRate = 6;         #How often to re-draw the FireKnight
     FireKnightDirection = 'Right'     #Control which direction FireKnight is facing
     FireKnightSpeed = 6
@@ -57,7 +48,7 @@ def main():
     
     #wall1 = pygame.Rect(0,0, 10, 1000)  #x y width hight
     #wall2 = pygame.Rect(0,0, 1000, 10)
-    #wall3 = pygame.Rect(0,990, 1000, 10)
+    #wall3 = pygame.Rect(0,980, 1000, 10)
     #wall4 = pygame.Rect(990, 0, 10, 1000)
 
     
@@ -78,8 +69,6 @@ def main():
                 FireKnightDirection = 'Up'
             elif ev.key == pygame.K_s:
                 FireKnightDirection = 'Down'
-            FireKnightRect = [1,177,224,53]  #Old Values
-            FireKnightRect = [2,354,448,106]            
         elif ev.type == pygame.KEYUP:
             FireKnightMove = False
 
@@ -128,6 +117,8 @@ def main():
         
         if (FireKnightMove):  #Check if the FireKnight should move
             #Move the FireKnight
+            FireKnightRect = [1,177,224,53]  #Old Values
+            FireKnightRect = [2,354,448,106]  #Old Values
             if FireKnightDirection =='Right' and wallInTheWayRight == False: #FireKnight goes right
                 FireKnightPos[0] += FireKnightSpeed     #update the x for the FireKnight
                 wallInTheWayLeft = False
@@ -140,6 +131,9 @@ def main():
             elif FireKnightDirection =='Down' and wallInTheWayDown == False:                               #FireKnight goes left
                 FireKnightPos[1] += FireKnightSpeed     #update the y for the FireKnight
                 wallInTheWayUp = False
+            
+            
+            
         
         if FireKnightMove == False:
         
@@ -153,7 +147,7 @@ def main():
                     #self.imageRect = copy.copy(self.origImageRect)
                     #print(f"Patch Number: {FireKnightPatchNumber}   Image Rect: {FireKnightRect}  ")
                     
-       
+         
         
            
         #else:
@@ -164,7 +158,7 @@ def main():
         #----------------------Draw all the images----------------------------#  
         # We draw everything from scratch on each frame.
         # So first fill everything with the background color
-        mainSurface.fill((135,148,144))
+        mainSurface.fill((0,0,0))
         
         
         #draw the wall
@@ -172,33 +166,16 @@ def main():
         #wall2 = pygame.draw.rect(mainSurface, rectColor, (wall2))
         #wall3 = pygame.draw.rect(mainSurface, rectColor, (wall3))
         #wall4 = pygame.draw.rect(mainSurface, rectColor, (wall4))
-        #wall5 = pygame.draw.rect(mainSurface, rectColor, (wall5))
-        #wall6 = pygame.draw.rect(mainSurface, rectColor, (wall6))
-        #wall7 = pygame.draw.rect(mainSurface, rectColor, (wall7))
-        #wall8 = pygame.draw.rect(mainSurface, rectColor, (wall8))
-        #wall9 = pygame.draw.rect(mainSurface, rectColor, (wall9))
-        #wall10 = pygame.draw.rect(mainSurface, rectColor, (wall10))
-        #wall11 = pygame.draw.rect(mainSurface, rectColor, (wall11))
-        #wall12 = pygame.draw.rect(mainSurface, rectColor, (wall12))
-        #wall13 = pygame.draw.rect(mainSurface, rectColor, (wall13))
-        #wall14 = pygame.draw.rect(mainSurface, rectColor, (wall14))
-        #wall15 = pygame.draw.rect(mainSurface, rectColor, (wall15))
-        #wall16 = pygame.draw.rect(mainSurface, rectColor, (wall16))
-        #wall17 = pygame.draw.rect(mainSurface, rectColor, (wall17))
-        #wall18 = pygame.draw.rect(mainSurface, rectColor, (wall18))
-       # wall19 = pygame.draw.rect(mainSurface, rectColor, (wall19))
-       # wall20 = pygame.draw.rect(mainSurface, rectColor, (wall20))
-      #  wall21 = pygame.draw.rect(mainSurface, rectColor, (wall21))
-                 
+          
         
         
         
         
         
         #you can comment the line of code below to see the hitbox
-#         pygame.draw.rect(mainSurface, (255,0,0), FireKnightHitbox, 2)
+        pygame.draw.rect(mainSurface, (255,0,0), FireKnightHitbox, 2)
         #the print below is for troubleshooting, it shows FireKnight's location and hitbox
-#         print(f"FireKnight position = {FireKnightPos} , {FireKnightHitbox}")
+        print(f"FireKnight position = {FireKnightPos} , {FireKnightHitbox}")
                 
         
         
@@ -207,7 +184,7 @@ def main():
         tempSurface = pygame.Surface( (FireKnightRect[2], FireKnightRect[3]) ) #Make a temp Surface using the width and height of the rect
         tempSurface.fill((1,1,1))
         tempSurface.set_colorkey((1,1,1))                                      #Set the color black to be transparent
-        tempSurface.blit(Fire_Animation, (0,0),  FireKnightRect)                      #Copy the FireKnight image to the temp surface
+        tempSurface.blit(spriteSheet, (0,0),  FireKnightRect)                      #Copy the FireKnight image to the temp surface
         
         if FireKnightDirection == 'Left':
             tempSurface = pygame.transform.flip(tempSurface,True,False)
@@ -227,5 +204,4 @@ def main():
     pygame.quit()     # Once we leave the loop, close the window.
 
 main()
-
 
